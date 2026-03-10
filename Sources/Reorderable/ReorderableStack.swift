@@ -165,11 +165,10 @@ package struct ReorderableStack<Axis: ContainerAxis, Data: RandomAccessCollectio
     
     if (scrollDragPos <= bumperSize && Axis.project(maybePoint: pos.wrappedValue.point) ?? 1.0 > 0) {
       if (scrollTimer == nil) {
-        var scrollOffset = Axis.project(point: scrollContainerOffset)
-        var dragPos = Axis.project(point: stackDrag.location)
-        
         scrollTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
           Task { @MainActor in
+            var scrollOffset = Axis.project(point: scrollContainerOffset)
+            var dragPos = Axis.project(point: stackDrag.location)
             pos.wrappedValue.scrollTo(point: Axis.asPoint(value: scrollOffset))
             
             checkIntersection(position: dragPos, dragged: dragging)
@@ -189,11 +188,10 @@ package struct ReorderableStack<Axis: ContainerAxis, Data: RandomAccessCollectio
       }
     } else if (scrollDragPos >= Axis.project(size: bounds) - bumperSize && Axis.project(maybePoint: pos.wrappedValue.point) ?? 0.0 < scrollEnd) {
       if (scrollTimer == nil) {
-        var scrollOffset = Axis.project(point: scrollContainerOffset)
-        var dragPos = Axis.project(point: stackDrag.location)
-        
         scrollTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
           Task { @MainActor in
+            var scrollOffset = Axis.project(point: scrollContainerOffset)
+            var dragPos = Axis.project(point: stackDrag.location)
             pos.wrappedValue.scrollTo(point: Axis.asPoint(value: scrollOffset))
             
             checkIntersection(position: dragPos, dragged: dragging)
